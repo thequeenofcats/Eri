@@ -1,13 +1,24 @@
 const button = document.querySelector("button");
 const pictures = document.querySelectorAll("img");
+const picture = document.querySelector(".cat");
+const load = document.querySelector(".load");
 
-function displayImage(number) {
-  const pic = document.querySelector(".pic-" + number);
-  pic.style.display = "block";
+function getImage() {
+  const number = Math.floor(Math.random() * 53);
+  if (number < 21) {
+    picture.classList.remove("horizontal");
+    picture.classList.add("vertical");
+  } else {
+    picture.classList.remove("vertical");
+    picture.classList.add("horizontal");
+  }
+  picture.src = "./Assets/" + number + ".jpg";
+  picture.style.display = "block";
+
+  picture.addEventListener("load", function () {
+    load.style.display = "block";
+  });
+  load.style.display = "none";
 }
 
-button.addEventListener("click", function () {
-  pictures.forEach((img) => (img.style.display = "none"));
-  const number = Math.floor(Math.random() * 53);
-  displayImage(number);
-});
+button.addEventListener("click", getImage);
